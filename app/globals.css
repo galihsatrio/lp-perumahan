@@ -1,26 +1,151 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+  :root {
+    --background: 24 33% 97%;
+    /* Soft Cream/Off-white */
+    --foreground: 160 84% 12%;
+    /* Deep Emerald */
+
+    --emerald-50: 160 84% 95%;
+    --emerald-100: 160 84% 88%;
+    --emerald-600: 160 84% 35%;
+    --emerald-800: 160 84% 15%;
+    --emerald-900: 160 84% 8%;
+
+    --gold-400: 43 100% 70%;
+    --gold-500: 43 100% 50%;
+    --gold-600: 43 80% 40%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: 160 84% 5%;
+      --foreground: 160 84% 95%;
+    }
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-emerald-50: hsl(var(--emerald-50));
+  --color-emerald-600: hsl(var(--emerald-600));
+  --color-emerald-800: hsl(var(--emerald-800));
+  --color-gold-500: hsl(var(--gold-500));
+
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-playfair), serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .shadow-soft {
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.05),
+      0 10px 15px -3px rgba(0, 0, 0, 0.03),
+      0 20px 25px -5px rgba(0, 0, 0, 0.02);
+  }
+
+  .shadow-layered {
+    box-shadow:
+      0 10px 30px -10px rgba(6, 43, 31, 0.2),
+      0 20px 60px -15px rgba(6, 43, 31, 0.1);
+  }
+
+  .organic-radius {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+
+  /* Fluid Typography Utilities */
+  .text-fluid-hero {
+    font-size: clamp(3rem, 8vw + 1rem, 5.5rem);
+  }
+
+  .text-fluid-h2 {
+    font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  }
+
+  .text-fluid-p {
+    font-size: clamp(1rem, 1vw + 0.5rem, 1.25rem);
+  }
+
+  /* Improved Navbar Visibility Utility */
+  .nav-glass {
+    background: rgba(253, 252, 250, 0.85);
+    /* Soft Cream heavily opaque */
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(6, 43, 31, 0.1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
